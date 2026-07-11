@@ -22,8 +22,8 @@
                             700: '#1f2937',
                         },
                         brand: {
-                            500: '#6366f1',
-                            600: '#4f46e5',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
                         }
                     }
                 }
@@ -41,10 +41,10 @@
             --text-primary: #111827;
             --text-secondary: #4b5563;
             --text-muted: #9ca3af;
-            --accent: #6366f1;
-            --accent-light: #e0e7ff;
-            --accent-border: #c7d2fe;
-            --accent-hover: #4f46e5;
+            --accent: #0ea5e9;
+                    --accent-light: #e0f2fe;
+                    --accent-border: #7dd3fc;
+                    --accent-hover: #0284c7;
             --green-bg: #d1fae5;
             --green-border: #a7f3d0;
             --green-text: #059669;
@@ -56,8 +56,8 @@
             --red-text: #dc2626;
             --progress-bg: #e5e7eb;
             --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-            --btn-primary-bg: #6366f1;
-            --btn-primary-hover: #4f46e5;
+            --btn-primary-bg: #0ea5e9;
+                    --btn-primary-hover: #0284c7;
             --btn-secondary-bg: #f3f4f6;
             --btn-secondary-hover: #e5e7eb;
             --modal-bg: rgba(0,0,0,0.5);
@@ -74,10 +74,10 @@
             --text-primary: #f9fafb;
             --text-secondary: #9ca3af;
             --text-muted: #6b7280;
-            --accent: #818cf8;
-            --accent-light: rgba(99, 102, 241, 0.15);
-            --accent-border: rgba(99, 102, 241, 0.3);
-            --accent-hover: #6366f1;
+            --accent: #38bdf8;
+                    --accent-light: rgba(14, 165, 233, 0.12);
+                    --accent-border: rgba(56, 189, 248, 0.25);
+                    --accent-hover: #0ea5e9;
             --green-bg: rgba(16, 185, 129, 0.1);
             --green-border: rgba(16, 185, 129, 0.2);
             --green-text: #34d399;
@@ -89,8 +89,8 @@
             --red-text: #f87171;
             --progress-bg: rgba(31, 41, 55, 0.8);
             --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-            --btn-primary-bg: #6366f1;
-            --btn-primary-hover: #4f46e5;
+            --btn-primary-bg: #0ea5e9;
+                    --btn-primary-hover: #0284c7;
             --btn-secondary-bg: rgba(31, 41, 55, 0.6);
             --btn-secondary-hover: rgba(55, 65, 81, 0.8);
             --modal-bg: rgba(0,0,0,0.8);
@@ -131,8 +131,18 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
         
-        .btn-primary { background: var(--btn-primary-bg); color: white; transition: all 0.2s ease; }
-        .btn-primary:hover { background: var(--btn-primary-hover); transform: translateY(-1px); }
+        .btn-primary {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: white;
+    box-shadow: 0 10px 25px rgba(14,165,233,.25);
+    transition: all .25s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    box-shadow: 0 14px 35px rgba(14,165,233,.35);
+    transform: translateY(-2px);
+}
         .btn-secondary { background: var(--btn-secondary-bg); color: var(--text-primary); border: 1px solid var(--border-inner); transition: all 0.2s ease; }
         .btn-secondary:hover { background: var(--btn-secondary-hover); transform: translateY(-1px); }
         .text-secondary { color: var(--text-secondary); }
@@ -168,8 +178,10 @@
 </head>
 <body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-start fade-in relative overflow-x-hidden">
     <!-- Ambient Background Glows -->
-    <div class="glow-effect top-0 left-10"></div>
-    <div class="glow-effect bottom-20 right-10" style="background: #34d399;"></div>
+    <div class="glow-effect top-0 left-10"
+    style="background:#0ea5e9;opacity:.18;"></div>
+    <div class="glow-effect bottom-20 right-10"
+    style="background:#38bdf8;opacity:.12;"></div>
 
     <!-- Theme & Language Toggle -->
     <div class="w-full max-w-6xl flex justify-end items-center mb-6 z-10 relative">
@@ -192,7 +204,7 @@
         <div class="md:col-span-4 flex flex-col gap-6">
             <!-- Profile Card -->
             <div class="bento-card p-6 flex flex-col items-center text-center relative overflow-hidden">
-                <div class="absolute top-0 w-full h-24" style="background: linear-gradient(135deg, var(--accent-light) 0%, transparent 100%); opacity: 0.5;"></div>
+                <div class="absolute top-0 w-full h-24" style="background: linear-gradient(135deg,#38bdf822 0%,#0ea5e911 45%,transparent 100%); opacity: 0.5;"></div>
                 <div class="w-24 h-24 rounded-full overflow-hidden mb-4 z-10 relative">
     <img
         src="https://raw.githubusercontent.com/mamarezawy/assets/main/logo.jpg"
@@ -266,7 +278,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
             <!-- Support / Help -->
             <div class="bento-card p-6" style="background: linear-gradient(135deg, var(--bg-card) 0%, var(--accent-light) 200%);">
                 <h3 class="text-sm font-bold flex items-center gap-2 mb-3" style="color: var(--text-primary);">
-                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     Help & Support
                 </h3>
                 <p class="text-xs text-secondary mb-4 leading-relaxed">Having trouble connecting? Keep your clients updated or contact support for assistance.</p>
@@ -284,11 +296,11 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Total Usage -->
                 <div class="bento-card p-6 relative overflow-hidden group">
-                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-indigo-500 opacity-5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-sky-500 opacity-5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
                     <div class="flex justify-between items-start mb-4 relative z-10">
                         <p class="text-xs font-bold uppercase tracking-widest text-secondary" data-i18n="totalUsage">Total Usage</p>
                         <span class="p-2 rounded-lg" style="background: var(--bg-card-inner); border: 1px solid var(--border-inner);">
-                            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                            <svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                         </span>
                     </div>
                     <div class="flex items-baseline gap-1.5 mb-4 relative z-10">
@@ -320,7 +332,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                 <div class="flex justify-between items-end mb-6">
                     <div>
                         <h3 class="text-lg font-black flex items-center gap-2 mb-1" style="color: var(--text-primary);">
-                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                             <span data-i18n="integrationTitle">Integration Connections</span>
                         </h3>
                         <p class="text-xs text-secondary" data-i18n="integrationDesc">Add your preferred configuration link.</p>
@@ -337,7 +349,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                         <p class="text-xs text-secondary mb-4 leading-relaxed" data-i18n="universalDesc">This URL automatically detects your client and delivers the optimal format.</p>
                         
                         <div class="flex flex-col sm:flex-row gap-3 w-full">
-                            <input type="text" id="link-normal" value="__SYNC_NORMAL__" readonly class="input-field flex-1 px-4 py-3 rounded-xl text-sm font-mono w-full outline-none shadow-inner focus:ring-2 focus:ring-indigo-500 transition-shadow">
+                            <input type="text" id="link-normal" value="__SYNC_NORMAL__" readonly class="input-field flex-1 px-4 py-3 rounded-xl text-sm font-mono w-full outline-none shadow-inner focus:ring-2 focus:ring-sky-500 transition-shadow">
                             <div class="flex gap-2">
                                 <button onclick="copyLink('link-normal')" class="btn-primary flex-1 sm:flex-none px-6 py-3 rounded-xl text-sm font-bold shrink-0 flex justify-center items-center gap-2 shadow-md">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
@@ -368,7 +380,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                                 </div>
                                 <div class="flex gap-2">
                                     <input type="text" id="link-raw-fmt" readonly class="input-field flex-1 px-3 py-2 rounded-lg text-xs font-mono w-full outline-none" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--accent-border);">
-                                    <button onclick="copyLink('link-raw-fmt')" class="px-3 py-2 rounded-lg text-xs font-bold bg-indigo-500 text-white flex items-center gap-1 hover:bg-indigo-600 transition-colors">
+                                    <button onclick="copyLink('link-raw-fmt')" class="px-3 py-2 rounded-lg text-xs font-bold bg-sky-500 text-white flex items-center gap-1 hover:bg-sky-600 transition-colors">
                                         <span data-i18n="copy">Copy</span>
                                     </button>
                                     <button onclick="showQRModal(document.getElementById('link-raw-fmt').value)" class="p-2 rounded-lg border border-accent-border hover:bg-white/10 flex items-center justify-center" style="border-color: var(--accent-border);">
@@ -419,7 +431,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                                 </div>
                                 <div class="flex gap-2">
                                     <input type="text" id="link-clash-fmt" readonly class="input-field flex-1 px-3 py-2 rounded-lg text-xs font-mono w-full outline-none" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--accent-border);">
-                                    <button onclick="copyLink('link-clash-fmt')" class="px-3 py-2 rounded-lg text-xs font-bold bg-violet-500 text-white flex items-center gap-1 hover:bg-violet-600 transition-colors">
+                                    <button onclick="copyLink('link-clash-fmt')" class="px-3 py-2 rounded-lg text-xs font-bold bg-sky-500 text-white flex items-center gap-1 hover:bg-sky-600 transition-colors">
                                         <span data-i18n="copy">Copy</span>
                                     </button>
                                     <button onclick="showQRModal(document.getElementById('link-clash-fmt').value)" class="p-2 rounded-lg border border-accent-border hover:bg-white/10 flex items-center justify-center" style="border-color: var(--accent-border);">
