@@ -578,7 +578,17 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                 <div class="mt-6 bento-inner p-5 sm:p-6 border border-accent-border relative overflow-hidden" style="border-color: var(--accent-border);">
                     <div class="absolute inset-0 opacity-5 pointer-events-none" style="background: radial-gradient(circle at 100% 0%, var(--accent) 0%, transparent 40%);"></div>
                     <div class="relative z-10 space-y-4">
-                        <h4 class="font-bold flex items-center gap-2" style="color: var(--text-primary);">
+                        <button
+    onclick="toggleFormats()"
+    class="btn-secondary w-full py-3 rounded-xl font-bold mb-4">
+
+    <span id="more-text">More Formats ▼</span>
+
+</button>
+
+<div id="formats-box" class="hidden">
+
+                                        <h4 class="font-bold flex items-center gap-2" style="color: var(--text-primary);">
                             <span data-i18n="availableFormats">Available Subscription Formats</span>
                         </h4>
                         <p class="text-xs text-secondary leading-relaxed" data-i18n="formatsDesc">Use these links to explicitly request specific configuration formats.</p>
@@ -654,7 +664,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                         </div>
                     </div>
                 </div>
-                
+                </div>
                 <div class="mt-8 pt-6 border-t border-inner flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div class="text-xs text-secondary">
                         Advanced users can retrieve raw config blocks manually.
@@ -935,6 +945,21 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
             if (clashInput) clashInput.value = normalLink + (normalLink.includes('?') ? '&flag=clash' : '?flag=clash');
         })();
     
+function toggleFormats(){
+
+    const box = document.getElementById("formats-box");
+    const text = document.getElementById("more-text");
+
+    if(box.classList.contains("hidden")){
+        box.classList.remove("hidden");
+        text.innerText="Hide Formats ▲";
+    }else{
+        box.classList.add("hidden");
+        text.innerText="More Formats ▼";
+    }
+
+}
+
 </script>
 </body>
 </html>
