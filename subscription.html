@@ -109,29 +109,37 @@ LeGodcy
 }
         [lang="fa"] body { font-family: 'Vazirmatn', sans-serif; }
         
-        .bento-card {
-    background: rgba(17,24,39,.55) !important;
-    border: 1px solid var(--border-card) !important;
+        .bento-card{
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
     border-radius: 1.5rem;
     backdrop-filter: blur(22px) saturate(180%);
     -webkit-backdrop-filter: blur(22px) saturate(180%);
-    transition: .35s ease;
+    transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
     overflow: hidden;
     position: relative;
     box-shadow:
         0 8px 32px rgba(0,0,0,.25),
         0 0 0 1px rgba(255,255,255,.05) inset;
+    border-top:1px solid rgba(255,255,255,.08);
+}
 
-             border-top:1px solid rgba(255,255,255,.08);
+.dark .bento-card{
+    background: rgba(17,24,39,.55);
+    border-color: var(--border-card);
 }
 
 .bento-card:hover{
-    transform: translateY(-6px);
-    border-color: rgba(56,189,248,.35) !important;
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(56,189,248,.35);
     box-shadow:
         0 20px 45px rgba(0,0,0,.18),
-        0 0 20px rgba(56,189,248,.15);
-}        
+        0 0 20px rgba(56,189,248,.15),
+        0 0 0 1px rgba(56,189,248,.10) inset;
+}
         .bento-inner {
             background: var(--bg-card-inner);
             border: 1px solid var(--border-inner);
@@ -317,6 +325,65 @@ backdrop-filter:blur(20px);
 border:1px solid rgba(255,255,255,.08);
 }
 
+.profile-logo{
+    position:relative;
+    overflow:visible;
+    border-radius:50%;
+    box-shadow:
+        0 0 35px rgba(56,189,248,.22);
+    transition:.35s;
+}
+
+.profile-logo img{
+    border-radius:50%;
+    display:block;
+}
+
+.profile-logo:hover{
+    transform:scale(1.06);
+    box-shadow:
+        0 0 45px rgba(56,189,248,.4),
+        0 0 90px rgba(56,189,248,.18);
+}
+
+button:active,
+a:active{
+    transform: scale(.97);
+}
+
+.profile-ring{
+    position:absolute;
+    inset:-4px;
+    border-radius:50%;
+    padding:3px;
+    background:linear-gradient(
+        135deg,
+        #38bdf8,
+        #0ea5e9,
+        #7dd3fc,
+        #38bdf8
+    );
+
+    background-size:300% 300%;
+    animation:ringMove 6s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+            mask-composite:exclude;
+
+    pointer-events:none;
+}
+
+@keyframes ringMove{
+    0%{
+        background-position:0% 50%;
+    }
+    100%{
+        background-position:300% 50%;
+    }
+}
     </style>
 </head>
 <body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-start fade-in relative overflow-x-hidden">
@@ -347,12 +414,14 @@ border:1px solid rgba(255,255,255,.08);
         <div class="md:col-span-4 flex flex-col gap-6">
             <!-- Profile Card -->
             <div class="bento-card p-6 flex flex-col items-center text-center relative overflow-hidden">
-                <div class="absolute top-0 w-full h-24" style="background: linear-gradient(135deg,#38bdf822 0%,#0ea5e911 45%,transparent 100%); opacity: 0.5;"></div>
-                <div class="w-24 h-24 rounded-full overflow-hidden mb-4 z-10 relative">
+                <div class="absolute top-0 w-full h-24" style="background: linear-gradient(135deg,#38bdf822 0%,#0ea5e911 45%,transparent 100%); opacity: 0.8;"></div>
+                <div class="profile-logo relative w-24 h-24 rounded-full overflow-hidden mb-4 z-10">
+    <span class="profile-ring"></span>
+
     <img
         src="https://raw.githubusercontent.com/mamarezawy/assets/main/logo.jpg"
         alt="LEGODCY VPN"
-        class="w-full h-full object-cover shadow-2xl ring-4 ring-sky-400/20">
+        class="relative z-10 w-full h-full object-cover rounded-full">
 </div>
                 <h1 class="text-2xl font-black tracking-tight z-10 mb-1" style="color: var(--text-primary);">__USER_NAME__</h1>
                 <p class="text-xs font-mono z-10 mb-5" style="color: var(--text-muted);">__USER_ID__</p>
@@ -609,7 +678,7 @@ class="app-btn col-span-2 p-5 rounded-2xl flex items-center justify-center gap-3
                 <svg class="w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <h3 class="text-xl font-black mb-6 text-center" style="color: var(--text-primary);" id="qr-title">Scan QR Code</h3>
-            <div class="bg-white p-4 rounded-2xl shadow-inner mb-6 mx-auto w-fit">
+            <div class="bg-white p-5 rounded-3xl shadow-inner mb-6 mx-auto w-fit">
                 <img id="qr-img" src="" alt="QR Code" class="w-48 h-48 sm:w-56 sm:h-56">
             </div>
             <p id="qr-text" class="text-xs text-center text-secondary font-mono break-all mb-6 px-2 bg-black/5 dark:bg-white/5 py-3 rounded-xl border border-inner"></p>
