@@ -119,13 +119,13 @@
             width: 55vmax; height: 55vmax;
             border-radius: 50%;
             filter: blur(90px);
-            opacity: .35;
-            animation: drift 26s ease-in-out infinite;
+            opacity: .38;
+            animation: drift 13s ease-in-out infinite;
         }
-        .dark .aurora span { opacity: .30; }
+        .dark .aurora span { opacity: .32; }
         .aurora span:nth-child(1) { background: #2f7bf5; top: -15%; left: -10%; animation-delay: 0s; }
-        .aurora span:nth-child(2) { background: #22c1e0; top: 10%; right: -15%; animation-delay: -8s; }
-        .aurora span:nth-child(3) { background: #7c6cf0; bottom: -20%; left: 15%; animation-delay: -16s; }
+        .aurora span:nth-child(2) { background: #22c1e0; top: 10%; right: -15%; animation-delay: -4.3s; }
+        .aurora span:nth-child(3) { background: #7c6cf0; bottom: -20%; left: 15%; animation-delay: -8.6s; }
         .dark .aurora span:nth-child(1) { background: #1e4fb8; }
         .dark .aurora span:nth-child(2) { background: #0e8fb0; }
         .dark .aurora span:nth-child(3) { background: #4a3aa8; }
@@ -202,6 +202,43 @@
         }
         .icon-btn:hover { border-color: var(--accent-border); color: var(--accent-2); transform: translateY(-2px) scale(1.05); }
 
+        /* Telegram teaser: pops open with a label for a few seconds on load, then settles back to an icon */
+        .telegram-btn {
+            transition: width .5s cubic-bezier(.34,1.56,.64,1), padding .5s cubic-bezier(.34,1.56,.64,1), background .4s ease, box-shadow .4s ease, color .4s ease, border-color .4s ease;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .telegram-btn .telegram-text {
+            display: inline-block;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-inline-start: 0;
+            font-size: .74rem;
+            font-weight: 800;
+            transition: max-width .45s ease, opacity .3s ease .05s, margin .45s ease;
+        }
+        .telegram-btn.expanded {
+            width: auto;
+            padding-inline: 1.1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #051225;
+            border-color: transparent;
+            box-shadow: 0 10px 26px rgba(47,123,245,.4);
+            animation: telegramPop .55s cubic-bezier(.34,1.56,.64,1);
+        }
+        .telegram-btn.expanded .telegram-text {
+            max-width: 220px;
+            opacity: 1;
+            margin-inline-start: .5rem;
+        }
+        @keyframes telegramPop {
+            0% { transform: scale(.9); }
+            55% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) { .telegram-btn.expanded { animation: none; } }
+
         .app-btn {
             background: var(--bg-card-inner);
             border: 1px solid var(--border-inner);
@@ -264,11 +301,14 @@
         @media (prefers-reduced-motion: reduce) { .wordmark { animation: none; } }
 
         /* Signature detail #2: circuit trace under the status pill, matching the logo's PCB lines */
-        .signal-trace { width: 180px; max-width: 60%; height: 20px; display: block; margin: 0 auto; }
-        .signal-trace path { fill: none; stroke: url(#traceGrad); stroke-width: 1.6; stroke-linecap: round; opacity: .9; }
+        .signal-trace { width: 180px; max-width: 60%; height: 20px; display: block; margin: 0 auto; transition: opacity .4s ease; }
+        .signal-trace path { fill: none; stroke: url(#traceGrad); stroke-width: 1.6; stroke-linecap: round; opacity: .9; transition: stroke .4s ease, opacity .4s ease; }
         .signal-trace .sweep { stroke-dasharray: 6 10; animation: sweep 2.6s linear infinite; }
         @keyframes sweep { to { stroke-dashoffset: -160; } }
         @media (prefers-reduced-motion: reduce) { .signal-trace .sweep { animation: none; } }
+        /* Idle state: connection isn't active, so the pulse stops and goes dark */
+        .signal-trace.is-idle .sweep { animation-play-state: paused; }
+        .signal-trace.is-idle path { stroke: var(--text-muted); opacity: .3; }
 
         .status-pill {
             display: inline-flex; align-items: center; gap: .45rem;
@@ -308,8 +348,9 @@
             <span class="text-xs font-bold tracking-wide text-secondary font-display">LEGODCY</span>
         </div>
         <div class="flex gap-2.5">
-            <a href="https://t.me/legodcy" target="_blank" rel="noopener" class="icon-btn" title="پشتیبانی تلگرام" aria-label="Telegram Support">
-                <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.59 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.44-.88.03-.24.36-.48.98-.74 3.84-1.67 6.4-2.78 7.68-3.32 3.64-1.52 4.4-1.79 4.9-1.8.11 0 .36.03.49.14.11.09.14.22.15.34-.01.07-.01.16-.02.26z"/></svg>
+            <a href="https://t.me/legodcy" target="_blank" rel="noopener" id="telegram-btn" class="icon-btn telegram-btn" title="پشتیبانی تلگرام" aria-label="Telegram Support">
+                <svg class="w-[18px] h-[18px] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.59 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.44-.88.03-.24.36-.48.98-.74 3.84-1.67 6.4-2.78 7.68-3.32 3.64-1.52 4.4-1.79 4.9-1.8.11 0 .36.03.49.14.11.09.14.22.15.34-.01.07-.01.16-.02.26z"/></svg>
+                <span class="telegram-text" data-i18n="telegramCta">Purchase &amp; Support</span>
             </a>
             <button onclick="toggleLang()" id="lang-toggle" class="icon-btn" title="Toggle Language">
                 <span id="lang-icon">🇺🇸</span>
@@ -336,7 +377,7 @@
             <p class="text-xs font-mono text-muted mb-5">__USER_ID__</p>
 
             <span id="status-badge" class="status-pill"></span>
-            <svg class="signal-trace mt-3" viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true">
+            <svg id="signal-trace-el" class="signal-trace mt-3" viewBox="0 0 200 22" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                     <linearGradient id="traceGrad" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stop-color="var(--accent-2)"/>
@@ -601,7 +642,8 @@
                 limitExceeded: 'Limit Exceeded',
                 dailyLimitExceeded: 'Daily Limit Exceeded',
                 availableFormats: 'Available Subscription Formats',
-                formatsDesc: 'Use these links to explicitly request specific configuration formats.'
+                formatsDesc: 'Use these links to explicitly request specific configuration formats.',
+                telegramCta: 'Purchase & Support'
             },
             fa: {
                 totalUsage: 'مصرف کل',
@@ -631,7 +673,8 @@
                 limitExceeded: 'از حد مجاز رد شده',
                 dailyLimitExceeded: 'از حد روزانه رد شده',
                 availableFormats: 'فرمت‌های اشتراک در دسترس',
-                formatsDesc: 'از این لینک‌ها برای درخواست مستقیم فرمت‌های خاص پیکربندی استفاده کنید.'
+                formatsDesc: 'از این لینک‌ها برای درخواست مستقیم فرمت‌های خاص پیکربندی استفاده کنید.',
+                telegramCta: 'جهت خرید و پشتیبانی'
             }
         };
 
@@ -690,11 +733,21 @@
                 limit: { en: t.limitExceeded || 'Limit Exceeded', bg: 'var(--red-bg)', border: 'var(--red-border)', color: 'var(--red-text)' },
                 dailyLimit: { en: t.dailyLimitExceeded || 'Daily Limit Exceeded', bg: 'var(--red-bg)', border: 'var(--red-border)', color: 'var(--red-text)' }
             };
-            const s = map['__STATUS_CODE__'] || map.active;
+            const statusCode = '__STATUS_CODE__';
+            const s = map[statusCode] || map.active;
             badge.innerHTML = '<span class="status-dot"></span><span>' + s.en + '</span>';
             badge.style.background = s.bg;
             badge.style.color = s.color;
             badge.style.border = '1px solid ' + s.border;
+
+            const trace = document.getElementById('signal-trace-el');
+            if (trace) {
+                if (statusCode === 'active') {
+                    trace.classList.remove('is-idle');
+                } else {
+                    trace.classList.add('is-idle');
+                }
+            }
         }
 
         function copyLink(id) {
@@ -801,6 +854,13 @@
             if (base64Input) base64Input.value = normalLink + (normalLink.includes('?') ? '&flag=base64' : '?flag=base64');
             if (singboxInput) singboxInput.value = normalLink + (normalLink.includes('?') ? '&flag=singbox' : '?flag=singbox');
             if (clashInput) clashInput.value = normalLink + (normalLink.includes('?') ? '&flag=clash' : '?flag=clash');
+
+            // Telegram teaser: opens with a label shortly after load, then settles back into an icon within ~5s
+            const tgBtn = document.getElementById('telegram-btn');
+            if (tgBtn && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                setTimeout(() => tgBtn.classList.add('expanded'), 600);
+                setTimeout(() => tgBtn.classList.remove('expanded'), 4700);
+            }
         })();
 
         function toggleFormats(){
