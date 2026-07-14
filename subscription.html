@@ -120,12 +120,12 @@
             border-radius: 50%;
             filter: blur(90px);
             opacity: .38;
-            animation: drift 13s ease-in-out infinite;
+            animation: drift 8s ease-in-out infinite;
         }
         .dark .aurora span { opacity: .32; }
         .aurora span:nth-child(1) { background: #2f7bf5; top: -15%; left: -10%; animation-delay: 0s; }
-        .aurora span:nth-child(2) { background: #22c1e0; top: 10%; right: -15%; animation-delay: -4.3s; }
-        .aurora span:nth-child(3) { background: #7c6cf0; bottom: -20%; left: 15%; animation-delay: -8.6s; }
+        .aurora span:nth-child(2) { background: #22c1e0; top: 10%; right: -15%; animation-delay: -2.6s; }
+        .aurora span:nth-child(3) { background: #7c6cf0; bottom: -20%; left: 15%; animation-delay: -5.3s; }
         .dark .aurora span:nth-child(1) { background: #1e4fb8; }
         .dark .aurora span:nth-child(2) { background: #0e8fb0; }
         .dark .aurora span:nth-child(3) { background: #4a3aa8; }
@@ -286,6 +286,15 @@
         }
         .hero-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+        .username-display {
+            font-family: 'Outfit','Vazirmatn',sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            text-shadow: 0 0 18px var(--accent-light), 0 0 2px var(--accent-border);
+        }
+        [lang="fa"] .username-display { font-family: 'Vazirmatn', sans-serif; font-weight: 800; }
+
         .wordmark {
             font-family: 'Outfit','Vazirmatn',sans-serif;
             font-weight: 800;
@@ -334,6 +343,58 @@
         }
 
         .divider-soft { border-top: 1px solid var(--border-inner); }
+
+        /* ---- Expiry alert: a live red band chasing itself around the card ---- */
+        .alert-banner {
+            position: relative;
+            border-radius: 1.4rem;
+            padding: 2.5px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(239,68,68,.16);
+        }
+        .alert-banner::before {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            background: conic-gradient(from 0deg,
+                transparent 0deg, transparent 15deg,
+                #ff8a8a 40deg, #ef4444 55deg, #ff8a8a 70deg,
+                transparent 95deg, transparent 360deg);
+            animation: chase 2.8s linear infinite;
+        }
+        @keyframes chase { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) { .alert-banner::before { animation: none; } }
+        .alert-banner-inner {
+            position: relative;
+            z-index: 1;
+            border-radius: 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(239,68,68,.18);
+        }
+        .alert-icon {
+            width: 2.6rem; height: 2.6rem;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 999px;
+            background: var(--red-bg);
+            color: var(--red-text);
+            animation: alertPulse 1.7s ease-in-out infinite;
+        }
+        @keyframes alertPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,.35); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
+        @media (prefers-reduced-motion: reduce) { .alert-icon { animation: none; } }
+        .alert-title { font-weight: 800; font-size: .95rem; color: var(--red-text); margin-bottom: .1rem; }
+        .alert-sub { font-size: .78rem; font-weight: 500; color: var(--text-secondary); }
+        .alert-cta {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: .6rem 1.3rem;
+            border-radius: 999px;
+            font-size: .8rem; font-weight: 800;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(239,68,68,.35);
+            transition: transform .15s ease, box-shadow .2s ease;
+            white-space: nowrap;
+        }
+        .alert-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(239,68,68,.42); }
     </style>
 </head>
 <body class="min-h-screen py-6 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-start relative overflow-x-hidden">
@@ -350,7 +411,7 @@
         <div class="flex gap-2.5">
             <a href="https://t.me/legodcy" target="_blank" rel="noopener" id="telegram-btn" class="icon-btn telegram-btn" title="پشتیبانی تلگرام" aria-label="Telegram Support">
                 <svg class="w-[18px] h-[18px] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.59 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.44-.88.03-.24.36-.48.98-.74 3.84-1.67 6.4-2.78 7.68-3.32 3.64-1.52 4.4-1.79 4.9-1.8.11 0 .36.03.49.14.11.09.14.22.15.34-.01.07-.01.16-.02.26z"/></svg>
-                <span class="telegram-text" data-i18n="telegramCta">Purchase &amp; Support</span>
+                <span class="telegram-text">جهت خرید و پشتیبانی</span>
             </a>
             <button onclick="toggleLang()" id="lang-toggle" class="icon-btn" title="Toggle Language">
                 <span id="lang-icon">🇺🇸</span>
@@ -358,6 +419,20 @@
             <button onclick="toggleTheme()" id="theme-toggle" class="icon-btn" title="Toggle Theme">
                 <span id="theme-icon">☀️</span>
             </button>
+        </div>
+    </div>
+
+    <!-- Expiry / inactive-service alert — shown only when the subscription isn't active -->
+    <div id="expiry-alert" class="alert-banner hidden w-full max-w-5xl mb-5 z-10 relative fade-in">
+        <div class="alert-banner-inner flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-5 py-4 sm:px-6 sm:py-4 text-center sm:text-start">
+            <span class="alert-icon shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path></svg>
+            </span>
+            <div class="flex-1 min-w-0">
+                <p class="alert-title">اشتراک شما به اتمام رسیده است</p>
+                <p class="alert-sub">جهت تمدید اشتراک پیام دهید</p>
+            </div>
+            <a href="https://t.me/legodcy" target="_blank" rel="noopener" class="alert-cta shrink-0">تمدید اشتراک</a>
         </div>
     </div>
 
@@ -373,7 +448,7 @@
             <h1 class="wordmark text-3xl sm:text-4xl mb-1">LEGODCY</h1>
             <p class="text-xs font-semibold tracking-[0.3em] uppercase mb-6" style="color: var(--accent-2);">VPN Subscriber Portal</p>
 
-            <p class="text-base sm:text-lg font-display font-bold mb-1" style="color: var(--text-primary);">__USER_NAME__</p>
+            <p class="username-display text-2xl sm:text-3xl mb-1.5">__USER_NAME__</p>
             <p class="text-xs font-mono text-muted mb-5">__USER_ID__</p>
 
             <span id="status-badge" class="status-pill"></span>
@@ -409,7 +484,7 @@
                 <a href="streisand://import/__SYNC_NORMAL__" class="app-btn p-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-semibold text-sm text-center">
                     <span>Streisand</span>
                 </a>
-                <a href="v2box://install-sub?url=__SYNC_NORMAL__&name=Legodcy%20-%20__USER_NAME__" class="app-btn p-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm text-center" style="border-color: var(--accent-border);">
+                <a href="v2box://install-sub?url=__SYNC_NORMAL__&name=Legodcy%20-%20__USER_NAME__" class="app-btn col-span-2 sm:col-span-1 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm text-center" style="border-color: var(--accent-border);">
                     <span>V2Box</span>
                 </a>
             </div>
@@ -642,8 +717,7 @@
                 limitExceeded: 'Limit Exceeded',
                 dailyLimitExceeded: 'Daily Limit Exceeded',
                 availableFormats: 'Available Subscription Formats',
-                formatsDesc: 'Use these links to explicitly request specific configuration formats.',
-                telegramCta: 'Purchase & Support'
+                formatsDesc: 'Use these links to explicitly request specific configuration formats.'
             },
             fa: {
                 totalUsage: 'مصرف کل',
@@ -673,8 +747,7 @@
                 limitExceeded: 'از حد مجاز رد شده',
                 dailyLimitExceeded: 'از حد روزانه رد شده',
                 availableFormats: 'فرمت‌های اشتراک در دسترس',
-                formatsDesc: 'از این لینک‌ها برای درخواست مستقیم فرمت‌های خاص پیکربندی استفاده کنید.',
-                telegramCta: 'جهت خرید و پشتیبانی'
+                formatsDesc: 'از این لینک‌ها برای درخواست مستقیم فرمت‌های خاص پیکربندی استفاده کنید.'
             }
         };
 
@@ -746,6 +819,15 @@
                     trace.classList.remove('is-idle');
                 } else {
                     trace.classList.add('is-idle');
+                }
+            }
+
+            const alertBox = document.getElementById('expiry-alert');
+            if (alertBox) {
+                if (statusCode === 'active') {
+                    alertBox.classList.add('hidden');
+                } else {
+                    alertBox.classList.remove('hidden');
                 }
             }
         }
@@ -859,7 +941,7 @@
             const tgBtn = document.getElementById('telegram-btn');
             if (tgBtn && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 setTimeout(() => tgBtn.classList.add('expanded'), 600);
-                setTimeout(() => tgBtn.classList.remove('expanded'), 4700);
+                setTimeout(() => tgBtn.classList.remove('expanded'), 8600);
             }
         })();
 
